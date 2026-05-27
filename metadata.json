@@ -1,0 +1,6 @@
+{
+  "name": "BARMY360",
+  "description": "Comunidade de projetos e apoio para fãs do BTS no Brasil",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

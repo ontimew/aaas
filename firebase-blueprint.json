@@ -1,0 +1,75 @@
+{
+  "entities": {
+    "Vote": {
+      "title": "Vote",
+      "description": "A user's vote on an interactive chart.",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "optionId": { "type": "number" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["projectId", "optionId", "userId", "createdAt"]
+    },
+    "ProjectStats": {
+      "title": "Project Stats",
+      "description": "Aggregated vote counts for a project.",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "votes": {
+          "type": "array",
+          "items": { "type": "number" }
+        }
+      },
+      "required": ["projectId", "votes"]
+    },
+    "Ticket": {
+      "title": "Ticket",
+      "description": "User ticket for sale or purchase.",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "price": { "type": "string" },
+        "date": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "sellerName": { "type": "string" },
+        "buyerId": { "type": "string", "description": "Optional" },
+        "status": { "type": "string", "enum": ["Disponível", "Em Negociação", "Vendido"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["type", "price", "date", "sellerId", "sellerName", "status", "createdAt"]
+    },
+    "UserConnection": {
+      "title": "UserConnection",
+      "description": "Connection requests between fans.",
+      "type": "object",
+      "properties": {
+        "fromUserId": { "type": "string" },
+        "toUserId": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "declined"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["fromUserId", "toUserId", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/projectStats/{projectId}": {
+      "schema": { "$ref": "ProjectStats" },
+      "description": "Stores aggregated vote arrays per project"
+    },
+    "/votes/{voteId}": {
+      "schema": { "$ref": "Vote" },
+      "description": "Stores individual user votes"
+    },
+    "/tickets/{ticketId}": {
+      "schema": { "$ref": "Ticket" },
+      "description": "Stores ticket listings"
+    },
+    "/connections/{connectionId}": {
+      "schema": { "$ref": "UserConnection" },
+      "description": "Stores connection requests between users"
+    }
+  }
+}
