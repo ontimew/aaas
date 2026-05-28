@@ -38,14 +38,21 @@ export default function App() {
     }
   };
 
-  if (authLoading) return <div className="min-h-screen bg-black text-white flex justify-center items-center">Loading...</div>;
+  if (authLoading) return (
+    <div className="min-h-screen bg-black text-white flex justify-center items-center" role="status" aria-label="Carregando">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-8 h-8 border-2 border-violet-500/30 border-t-violet-500 rounded-full animate-spin" />
+        <span className="text-white/60 text-sm">Carregando...</span>
+      </div>
+    </div>
+  );
 
   return (
     <div className="bg-black min-h-screen text-white font-sans overflow-x-hidden selection:bg-violet-500/30 relative">
-      {/* Background Orbs for Glassmorphism Context */}
-      <div className="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-violet-600/10 blur-[120px] pointer-events-none" />
-      <div className="fixed bottom-[-10%] right-[-5%] w-[40%] h-[50%] rounded-full bg-blue-600/10 blur-[120px] pointer-events-none" />
-      <div className="fixed top-[40%] right-[-10%] w-[30%] h-[30%] rounded-full bg-fuchsia-600/10 blur-[120px] pointer-events-none" />
+      {/* Background Orbs for Glassmorphism Context - Optimized for mobile */}
+      <div className="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-violet-600/10 blur-[60px] md:blur-[120px] pointer-events-none" aria-hidden="true" />
+      <div className="fixed bottom-[-10%] right-[-5%] w-[40%] h-[50%] rounded-full bg-blue-600/10 blur-[60px] md:blur-[120px] pointer-events-none" aria-hidden="true" />
+      <div className="fixed top-[40%] right-[-10%] w-[30%] h-[30%] rounded-full bg-fuchsia-600/10 blur-[60px] md:blur-[120px] pointer-events-none" aria-hidden="true" />
 
       <Header 
         currentView={currentView} 
@@ -64,7 +71,7 @@ export default function App() {
         }} 
       />
 
-      <main className="pt-20">
+      <main className="pt-20" role="main">
         <AnimatePresence mode="wait">
           {currentView === 'home' && (
             <motion.div
@@ -141,13 +148,13 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      <footer className="py-20 border-t border-white/[0.03] text-center mt-32 relative bg-white/[0.01] backdrop-blur-xl">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-4xl h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
-        <p className="text-white/40 text-sm font-medium tracking-wide">
-          <span className="text-violet-400/80 font-bold">BARMY360</span> • Um espaço de fãs para fãs.
+      <footer className="py-20 border-t border-white/[0.03] text-center mt-32 relative bg-white/[0.01] backdrop-blur-xl" role="contentinfo">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-4xl h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" aria-hidden="true" />
+        <p className="text-white/70 text-sm font-medium tracking-wide">
+          <span className="text-violet-400 font-bold">BARMY360</span> - Um espaco de fas para fas.
         </p>
-        <p className="text-white/20 text-xs mt-3 max-w-lg mx-auto font-medium">
-          Este é um projeto independente e não possui nenhum vínculo oficial com a BIGHIT MUSIC ou a marca BTS.
+        <p className="text-white/50 text-xs mt-3 max-w-lg mx-auto font-medium">
+          Este e um projeto independente e nao possui nenhum vinculo oficial com a BIGHIT MUSIC ou a marca BTS.
         </p>
       </footer>
     </div>

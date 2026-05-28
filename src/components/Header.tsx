@@ -56,21 +56,26 @@ export default function Header({ currentView, setCurrentView, isAuthenticated, i
     <>
     <header className={`fixed top-0 w-full z-[100] transition-all duration-500 flex justify-center ${scrolled ? 'bg-white/[0.03] backdrop-blur-[120px] border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.1)]' : 'bg-transparent'}`}>
       <div className="max-w-7xl w-full mx-auto px-6 h-20 flex items-center justify-between relative">
-        <div className="flex flex-col cursor-pointer shrink-0 z-10" onClick={() => setCurrentView('home')}>
+        <button 
+          className="flex flex-col cursor-pointer shrink-0 z-10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50 rounded-lg" 
+          onClick={() => setCurrentView('home')}
+          aria-label="Ir para pagina inicial BARMY360"
+        >
           <span className="text-xl md:text-2xl font-extrabold tracking-tight text-white/90">BARMY<span className="text-transparent bg-gradient-to-br from-violet-400 to-indigo-500 bg-clip-text">360</span></span>
-          <span className="text-[9px] tracking-[0.2em] text-white/40 font-semibold uppercase mt-0.5">Army Brasil</span>
-        </div>
+          <span className="text-[9px] tracking-[0.2em] text-white/50 font-semibold uppercase mt-0.5">Army Brasil</span>
+        </button>
 
         <div className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center z-0">
-          <nav className="flex items-center gap-1 px-1 py-1 bg-white/[0.03] border border-white/[0.08] rounded-full backdrop-blur-[120px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_4px_16px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.4)] ring-1 ring-white/[0.05]">
+          <nav aria-label="Navegacao principal" className="flex items-center gap-1 px-1 py-1 bg-white/[0.03] border border-white/[0.08] rounded-full backdrop-blur-[120px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_4px_16px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.4)] ring-1 ring-white/[0.05]">
             {menuItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => setCurrentView(item.id)}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 ${
+                aria-current={currentView === item.id ? 'page' : undefined}
+                className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50 ${
                   currentView === item.id 
                     ? 'bg-white/10 text-white shadow-[0_4px_16px_rgba(0,0,0,0.15)] ring-1 ring-white/10' 
-                    : 'text-white/50 hover:text-white hover:bg-white/[0.04]'
+                    : 'text-white/60 hover:text-white hover:bg-white/[0.04]'
                 }`}
               >
                 {item.label}
@@ -84,23 +89,26 @@ export default function Header({ currentView, setCurrentView, isAuthenticated, i
             <div className="hidden lg:flex items-center gap-2">
               <button 
                 onClick={() => setCurrentView('profile')}
-                className="px-4 py-2 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] text-white rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_4px_16px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.4)] ring-1 ring-white/[0.05] backdrop-blur-[120px] transition-all"
+                className="px-4 py-2 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] text-white rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_4px_16px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.4)] ring-1 ring-white/[0.05] backdrop-blur-[120px] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50"
+                aria-label="Acessar meu perfil"
               >
-                <User size={14} className="inline text-violet-400" /> Meu Perfil
+                <User size={14} className="inline text-violet-400" aria-hidden="true" /> Meu Perfil
               </button>
-              <button onClick={handleLogout} className="p-2 bg-white/[0.03] hover:bg-red-500/20 border border-white/[0.08] hover:border-red-500/30 text-white/50 hover:text-red-400 rounded-full transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_4px_16px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.4)] ring-1 ring-white/[0.05] backdrop-blur-[120px]" title="Sair">
+              <button onClick={handleLogout} className="p-2 bg-white/[0.03] hover:bg-red-500/20 border border-white/[0.08] hover:border-red-500/30 text-white/50 hover:text-red-400 rounded-full transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_4px_16px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.4)] ring-1 ring-white/[0.05] backdrop-blur-[120px] focus:outline-none focus:ring-2 focus:ring-violet-500/50" aria-label="Sair da conta">
                 <LogOut size={14} />
               </button>
             </div>
           ) : (
-            <button onClick={onRequireAuth} className="hidden lg:flex px-5 py-2 bg-violet-600/80 hover:bg-violet-500 border border-violet-400/30 text-slate-50 rounded-full text-xs font-semibold transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_8px_32px_rgba(139,92,246,0.3)]">
+            <button onClick={onRequireAuth} className="hidden lg:flex px-5 py-2 bg-violet-600/80 hover:bg-violet-500 border border-violet-400/30 text-slate-50 rounded-full text-xs font-semibold transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_8px_32px_rgba(139,92,246,0.3)] focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50">
               Login
             </button>
           )}
 
           <button
             onClick={() => setIsOpen(true)}
-            className="lg:hidden p-2 bg-white/[0.03] border border-white/[0.08] rounded-full text-white/70 hover:text-white hover:bg-white/[0.08] transition-all backdrop-blur-[120px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_4px_16px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.4)] ring-1 ring-white/[0.05]"
+            aria-label="Abrir menu de navegacao"
+            aria-expanded={isOpen}
+            className="lg:hidden p-2 bg-white/[0.03] border border-white/[0.08] rounded-full text-white/70 hover:text-white hover:bg-white/[0.08] transition-all backdrop-blur-[120px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_4px_16px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.4)] ring-1 ring-white/[0.05] focus:outline-none focus:ring-2 focus:ring-violet-500/50"
           >
             <Menu size={18} />
           </button>
@@ -128,7 +136,7 @@ export default function Header({ currentView, setCurrentView, isAuthenticated, i
               className="fixed top-0 right-0 h-full w-full sm:w-84 bg-[#0a0515] shadow-[0_0_80px_rgba(0,0,0,0.8)] border-l border-white/[0.05] z-[120] p-6 flex flex-col lg:hidden"
             >
               <div className="flex justify-end mb-12">
-                <button onClick={() => setIsOpen(false)} className="p-3 bg-white/[0.01] rounded-full text-white/50 hover:text-white hover:bg-white/[0.04] transition-all border border-white/[0.05] shadow-[0_8px_32px_0_rgba(0,0,0,0.36),inset_0_1px_0_0_rgba(255,255,255,0.05)]">
+                <button onClick={() => setIsOpen(false)} aria-label="Fechar menu" className="p-3 bg-white/[0.01] rounded-full text-white/50 hover:text-white hover:bg-white/[0.04] transition-all border border-white/[0.05] shadow-[0_8px_32px_0_rgba(0,0,0,0.36),inset_0_1px_0_0_rgba(255,255,255,0.05)] focus:outline-none focus:ring-2 focus:ring-violet-500/50">
                   <X size={18} />
                 </button>
               </div>

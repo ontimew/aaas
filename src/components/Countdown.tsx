@@ -25,7 +25,7 @@ function TimeBlock({ value, label }: { value: number; label: string }) {
         <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
         <span className="text-2xl md:text-3xl font-medium font-mono text-white/90 tracking-widest">{value.toString().padStart(2, '0')}</span>
       </div>
-      <span className="text-[9px] md:text-[10px] text-white/40 font-semibold uppercase tracking-[0.2em]">{label}</span>
+      <span className="text-[9px] md:text-[10px] text-white/50 font-semibold uppercase tracking-[0.2em]">{label}</span>
     </div>
   );
 }
@@ -41,10 +41,10 @@ export default function Countdown() {
   }, []);
 
   return (
-    <section className="py-24 px-4 max-w-7xl mx-auto relative z-10">
+    <section className="py-24 px-4 max-w-7xl mx-auto relative z-10" aria-label="Contagem regressiva para os shows">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight text-white/90">Shows do BTS no Brasil</h2>
-        <p className="text-white/50 font-medium md:text-lg">Contador separado para cada data oficial.</p>
+        <p className="text-white/60 font-medium md:text-lg">Contador separado para cada data oficial.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
