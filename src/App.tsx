@@ -11,8 +11,11 @@ import Companhia from './components/Companhia';
 import AuthModal from './components/AuthModal';
 import AdminPanel from './components/AdminPanel';
 import ProfileSettings from './components/ProfileSettings';
+import FAQ from './components/FAQ';
+import ScrollToTop from './components/ScrollToTop';
+import { NotificationProvider } from './components/Notifications';
 
-export type ViewState = 'home' | 'projects' | 'tickets' | 'companhia' | 'admin' | 'profile';
+export type ViewState = 'home' | 'projects' | 'tickets' | 'companhia' | 'admin' | 'profile' | 'faq';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<ViewState>('home');
@@ -41,6 +44,7 @@ export default function App() {
   if (authLoading) return <div className="min-h-screen bg-black text-white flex justify-center items-center">Loading...</div>;
 
   return (
+    <NotificationProvider>
     <div className="bg-black min-h-screen text-white font-sans overflow-x-hidden selection:bg-violet-500/30 relative">
       {/* Background Orbs for Glassmorphism Context */}
       <div className="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-violet-600/10 blur-[120px] pointer-events-none" />
@@ -138,18 +142,33 @@ export default function App() {
               <ProfileSettings isAuthenticated={isAuthenticated} onRequireAuth={() => setIsAuthModalOpen(true)} />
             </motion.div>
           )}
+
+          {currentView === 'faq' && (
+            <motion.div
+              key="faq"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            >
+              <FAQ />
+            </motion.div>
+          )}
         </AnimatePresence>
       </main>
 
       <footer className="py-20 border-t border-white/[0.03] text-center mt-32 relative bg-white/[0.01] backdrop-blur-xl">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-4xl h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
-        <p className="text-white/40 text-sm font-medium tracking-wide">
-          <span className="text-violet-400/80 font-bold">BARMY360</span> • Um espaço de fãs para fãs.
+        <p className="text-white/50 text-sm font-medium tracking-wide">
+          <span className="text-violet-400/80 font-bold">BARMY360</span> • Um espaco de fas para fas.
         </p>
-        <p className="text-white/20 text-xs mt-3 max-w-lg mx-auto font-medium">
-          Este é um projeto independente e não possui nenhum vínculo oficial com a BIGHIT MUSIC ou a marca BTS.
+        <p className="text-white/30 text-xs mt-3 max-w-lg mx-auto font-medium">
+          Este e um projeto independente e nao possui nenhum vinculo oficial com a BIGHIT MUSIC ou a marca BTS.
         </p>
       </footer>
+
+      <ScrollToTop />
     </div>
+    </NotificationProvider>
   );
 }
